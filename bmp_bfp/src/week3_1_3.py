@@ -43,3 +43,13 @@ prof = {
 
 res = mot.ProfileMostProbableKmer(text,k,prof)
 print(res)
+
+dna = [
+'GGCGTTCAGGCA',
+'AAGAATCAGTCA',
+'CAAGGAGTTCGC',
+'CACGTCAATCAC',
+'CAATAATATTCG',
+]
+res = mot.GreedyMotifSearch(dna, 3,5)
+print(res)
