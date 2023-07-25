@@ -8,6 +8,10 @@ def Format(seq):
         lines.append(l)
     return lines
 
+def printSeq(seq):
+    for i in range(0,len(seq),80):
+        print(seq[i:i+80])
+
 
 def isOffsetStart(i, offsets):
     for ofs in offsets:

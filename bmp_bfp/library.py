@@ -77,7 +77,9 @@ def Reverse(s1):
 
 
 def Complement(seq):
-    subs = {'A':'T', 'T':'A', 'C':'G', 'G':'C'}
+    subs = {'A':'T', 'T':'A', 'C':'G', 'G':'C',
+            'B':'V', 'V':'B', 'D':'H', 'H':'D',
+            'K':'M', 'M':'K', 'S':'S', 'W':'W', 'N':'N', 'R':'R'}
     res = ''
     for i in range(len(seq)):
         res += subs[seq[i]]
