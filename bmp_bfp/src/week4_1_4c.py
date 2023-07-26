@@ -26,7 +26,6 @@ for i in range(Runs):
     res = mot.GibbsSampler(Dna, k, t, N)
     if mot.Score(res) < score:
         score = mot.Score(res)
-        #print(score)
         best = res
 print(res)
 print(score)
