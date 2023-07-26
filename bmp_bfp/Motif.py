@@ -1,8 +1,5 @@
 import random
 
-#
-# Motif.py
-#
 
 def Count(Motifs):
     count = {}
@@ -99,11 +96,6 @@ def GreedyMotifSearch(Dna, k, t):
     return BestMotifs
 
 
-#
-# Motif2.py
-#
-
-
 def CountWithPseudocounts(Motifs):
     res = Count(Motifs)
     for key in res:
@@ -119,7 +111,6 @@ def ProfileWithPseudocounts(Motifs):
         arr = counts[key]
         counts[key] = [x/t for x in arr]
     return counts
-
 
 
 def GreedyMotifSearchWithPseudocounts(Dna, k, t):
@@ -166,7 +157,6 @@ def RandomizedMotifSearch(Dna, k, t):
     while True:
         Profile = ProfileWithPseudocounts(M)
         M = Motifs(Profile, Dna)
-        #print('Score: ', Score(M), 'best: ', Score(BestMotifs))
         if Score(M) < Score(BestMotifs):
             BestMotifs = M
         else:
@@ -183,4 +173,32 @@ def Normalize(Probabilities):
 def WeightedDie(Probabilities):
     keys = [k for k in Probabilities]
     values = [v for v in Probabilities.values()]
-    return random.choices(keys, weights = values, k=1)
+    return random.choices(keys, weights = values, k=1)[0]
+
+
+def ProfileGeneratedString(Text, profile, k):
+    n = len(Text)
+    probabilities = {}
+    for i in range(0,n-k+1):
+        probabilities[Text[i:i+k]] = Pr(Text[i:i+k], profile)
+    probabilities = Normalize(probabilities)
+    return WeightedDie(probabilities)
+
+
+def GibbsSampler(Dna, k, t, N):
+    M = RandomMotifs(Dna, k, t)
+    assert len(M) == t
+    BestMotifs = M
+
+    for j in range(N):
+        i = random.randint(0, t-1)
+        noti = [v for index, v in enumerate(M) if index != i]
+        assert len(noti) == t - 1
+        prof = ProfileWithPseudocounts(noti)
+        kmer = ProfileMostProbableKmer(Dna[i], k, prof)
+        noti.insert(i, kmer)
+        M = noti
+        assert len(M) == t
+        if Score(M) < Score(BestMotifs):
+            BestMotifs = M
+    return BestMotifs
