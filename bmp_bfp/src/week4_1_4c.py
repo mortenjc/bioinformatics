@@ -1,4 +1,4 @@
-import sys, math, random
+import sys, math
 sys.path.append('..')
 
 import Motif as mot
@@ -16,18 +16,16 @@ Dna = [
 'TCAGCACCATGACCGCCTGGCCACCAATCGCCCGTAACAAGCGGGACGTCCGCGACGACGCGTGCGCTAGCGCCGTGGCGGTGACAACGACCAGATATGGTCCGAGCACGCGGGCGAACCTCGTGTTCTGGCCTCGGCCAGTTGTGTAGAGCTCATCGCTGTCATCGAGCGATATCCGACCACTGATCCAAGTCGGGGGCTCTGGGGACCGAAGTCCCCGGGCTCGGAGCTATCGGACCTCACGATCACC'
 ]
 
+Runs = 20
 k = 15
 t = len(Dna)
-N = 3000
+N = 100
 score = 1000000
 best = []
-for i in range(N):
-    res = mot.RandomizedMotifSearch(Dna, k, t)
+for i in range(Runs):
+    res = mot.GibbsSampler(Dna, k, t, N)
     if mot.Score(res) < score:
         score = mot.Score(res)
-        #print(score)
         best = res
-print('\n'.join(best))
-print('-'*k)
-print(mot.Consensus(best))
+print(res)
 print(score)
