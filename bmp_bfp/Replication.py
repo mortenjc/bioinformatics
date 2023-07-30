@@ -3,12 +3,12 @@ def SkewArray(Genome):
     res = {}
     res[0] = 0
     for i in range(len(Genome)):
-        if Genome[i] in 'AT':
-            res[i+1] = res[i]
-        elif Genome[i] == 'G':
+        if Genome[i] == 'G':
             res[i+1] = res[i] + 1
-        else:
+        elif Genome[i] == 'C':
             res[i+1] = res[i] - 1
+        else:
+            res[i+1] = res[i]
     return res
 
 

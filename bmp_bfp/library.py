@@ -1,10 +1,17 @@
-
+import random
 
 def readfile(filename):
     f = open(filename, 'r')
     lines = f.readlines()
     f.close()
     return lines
+
+
+def readfasta(filename):
+    lines = readfile(filename)
+    dna = ''.join(lines[1:])
+    dna = dna.replace('\n', '')
+    return dna
 
 
 def PatternMatching(Pattern, Genome):
@@ -88,3 +95,22 @@ def Complement(seq):
 
 def ReverseComplement(seq):
     return Reverse(Complement(seq))
+
+
+def CountMatches(s1, s2):
+    #print(s1, s2)
+    res = 0
+    for i in range(min(len(s1), len(s2))):
+        if s1[i] == s2[i]:
+            res += 1
+    return res
+
+
+# Knuth shuffle
+def Shuffle(s1):
+    n = len(s1)
+    ls1 = list(s1)
+    for i in range(n):
+        r = random.randint(i, n - 1)
+        ls1[i], ls1[r] = ls1[r], ls1[i]
+    return ''.join(ls1)

@@ -4,6 +4,7 @@ import random
 # Motif.py
 #
 
+
 def Count(Motifs):
     count = {}
     k = len(Motifs[0])
